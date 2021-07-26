@@ -97,5 +97,13 @@ public class UserRepository extends Repository {
 
     }
 
+    public void updatePassword(int userId, String newPassword) throws SQLException {
+
+        PreparedStatement pre = connection.prepareStatement(
+                "update users set password =? where userId = " + userId + "");
+        pre.setString(1, newPassword);
+        pre.executeUpdate();
+    }
+
 
 }

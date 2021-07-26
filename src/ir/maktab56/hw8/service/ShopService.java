@@ -31,16 +31,18 @@ public class ShopService {
             for (Category c : categories) {
 
                 System.out.println(c.toString());
-                System.out.println();
+
             }
+            System.out.println();
             int categoryId = Integer.parseInt(JOptionPane.showInputDialog("Enter the category ID you want :"));
 
             ArrayList<Product> products = productRepository.getProductsByCategoryId(categoryId);
             for (Product p : products) {
 
                 System.out.println(p.toString());
-                System.out.println();
+
             }
+            System.out.println();
             int productId = Integer.parseInt(JOptionPane.showInputDialog("Enter the product ID you want :"));
 
             int inventory = productRepository.getInventory(productId);
@@ -57,7 +59,7 @@ public class ShopService {
                             int newNumber = cartRepository.getNumber(user.getId(), productId) + number;
                             cartRepository.updateNumber(user.getId(), productId, newNumber);
                         } else {
-                            cartRepository.insert(user.getId(), categoryId, number, false);
+                            cartRepository.insert(user.getId(), productId, number, false);
                         }
 
 
@@ -139,6 +141,9 @@ public class ShopService {
             user.setBalance(newBalance);
             userRepository.updateUser(user);
             cartRepository.setIsPaid(user.getId());
+            JOptionPane.showMessageDialog(null, "The operation was successful  \n" +
+                            " and the money was withdrawn from your account",
+                    "withdrawn", JOptionPane.INFORMATION_MESSAGE);
 
         } else {
 
@@ -153,4 +158,3 @@ public class ShopService {
     }
 
 }
-

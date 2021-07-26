@@ -60,13 +60,16 @@ public class MainApplication {
 
                             if (b == 1) {
                                 shop.buy(user);
+                                System.out.println("*****************************");
                             } else if (b == 2) {
                                 ShopService shop1 = new ShopService();
                                 shop1.printAllProducts(user.getId());
+                                System.out.println("*****************************");
                             } else if (b == 3) {
                                 shop.deleteFromCart(user.getId());
                             } else if (b == 4) {
-                                System.out.println(shop.getTotalPrice(user.getId()) + "\n");
+                                System.out.println("Total price = " + shop.getTotalPrice(user.getId()) + "\n");
+                                System.out.println("******************************");
                             } else break;
 
 
@@ -85,7 +88,7 @@ public class MainApplication {
 
                     } else if (a == 4) {
 
-                        // change password
+                        userService.changhPassword(user.getId());
 
 
                     } else {

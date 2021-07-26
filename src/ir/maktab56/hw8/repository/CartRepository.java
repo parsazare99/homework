@@ -125,7 +125,7 @@ public class CartRepository extends Repository {
         int number = 0;
         while (result.next()) {
 
-            number = result.getInt(3);
+            number = result.getInt(1);
         }
 
         return number;
@@ -153,11 +153,11 @@ public class CartRepository extends Repository {
 
 
         PreparedStatement pre = connection.prepareStatement
-                ("UPDATE cart SET " +
-                        "`number`=? WHERE productId =" + productId + "and userId=" + userId);
+                ("UPDATE cart SET number=? WHERE productId = ? and userId=?");
 
         pre.setInt(1, newNumber);
-
+        pre.setInt(2, productId);
+        pre.setInt(3, userId);
 
         pre.executeUpdate();
 

@@ -74,5 +74,15 @@ public class UserService {
 
     }
 
+    public void changhPassword(int userId) throws SQLException {
+        String newPassword = JOptionPane.showInputDialog("Enter your new password : ");
+        userRepository.updatePassword(userId, newPassword);
+
+
+        JOptionPane.showMessageDialog(null, "Password change was successful  ");
+
+
+    }
+
 
 }
