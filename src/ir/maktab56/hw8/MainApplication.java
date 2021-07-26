@@ -35,52 +35,69 @@ public class MainApplication {
             else if (n == 2) {
                 User user = userService.logIn();
 
-                String userAnswer;
-                int a;
 
-                userAnswer = JOptionPane.showInputDialog(
-                        "1 : Add Product to Cart       \n " +
-                                "2 : Print the list of all products      \n" +
-                                "3 : Delete Product from Cart      \n" +
-                                "4 : Print the total price of shopping cart items         \n " +
-                                "5 : Final shopping cart confirmation      \n " +
-                                "6 : Increase account balance \n" +
-                                "7 : Exit...");
-                a = Integer.parseInt(userAnswer);
+                while (true) {
+
+                    String userAnswer = JOptionPane.showInputDialog(
+                            "1 : To Shop\n" +
+                                    "2 : Final shopping cart confirmation\n" +
+                                    "3 : Increase account balance \n" +
+                                    "4 : Change Password\n" +
+                                    "5 : Exit...");
+                    int a = Integer.parseInt(userAnswer);
 
 
-                if (a == 1) {
-
-                    shop.buy(user);
-
-                } else if (a == 2) {
-
-                    shop.printAllProducts(user.getId());
-                } else if (a == 3) {
-                    shop.deleteFromCart(user.getId());
-
-                } else if (a == 4) {
-                    System.out.println(shop.getTotalPrice(user.getId()));
-
-                } else if (a == 5) {
+                    if (a == 1) {
+                        while (true) {
+                            String Answer = JOptionPane.showInputDialog(
+                                    "1 : Add Product to Cart       \n" +
+                                            "2 : Print the list of all products      \n" +
+                                            "3 : Delete Product from Cart      \n" +
+                                            "4 : Print the total price of shopping cart items         \n" +
+                                            "5 : Exit...");
+                            int b = Integer.parseInt(userAnswer);
 
 
-                    shop.cartConfirmation(user);
+                            if (b == 1) {
+                                shop.buy(user);
+                            } else if (b == 2) {
+                                shop.printAllProducts(user.getId());
+                            } else if (b == 3) {
+                                shop.deleteFromCart(user.getId());
+                            } else if (b == 4) {
+                                System.out.println(shop.getTotalPrice(user.getId()));
+                            } else break;
 
 
-                } else if (a == 6) {
-                    userService.IncreaseAccountBalance(user);
+                        }
 
-                } else {
-                    break;
+
+                    } else if (a == 2) {
+
+                        shop.cartConfirmation(user);
+
+
+                    } else if (a == 3) {
+
+                        userService.IncreaseAccountBalance(user);
+
+
+                    } else if (a == 4) {
+
+                        // change password
+
+
+                    } else {
+                        break;
+                    }
+
+                    String u = JOptionPane.showInputDialog("1 : Return to the previous menu\n " +
+                            "2 : Exit ");
+                    if (!(u.equals("1"))) {
+                        break;
+                    }
+
                 }
-
-                String u = JOptionPane.showInputDialog("1 : Return to the previous menu\n " +
-                        "2 : Exit ");
-                if (!(u.equals("1"))) {
-                    break;
-                }
-
 
             }
 

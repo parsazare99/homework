@@ -33,7 +33,7 @@ public class UserRepository extends Repository {
     public User getUser(String username) throws SQLException {
         User user = new User();
         Statement statement = connection.createStatement();
-        ResultSet result = statement.executeQuery("select * from users where username =" + username);
+        ResultSet result = statement.executeQuery("select * from users where username = '" + username + "'");
 
         while (result.next()) {
 
