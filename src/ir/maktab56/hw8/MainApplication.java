@@ -49,23 +49,24 @@ public class MainApplication {
 
                     if (a == 1) {
                         while (true) {
-                            String Answer = JOptionPane.showInputDialog(
+                            String answer = JOptionPane.showInputDialog(
                                     "1 : Add Product to Cart       \n" +
                                             "2 : Print the list of all products      \n" +
                                             "3 : Delete Product from Cart      \n" +
                                             "4 : Print the total price of shopping cart items         \n" +
                                             "5 : Exit...");
-                            int b = Integer.parseInt(userAnswer);
+                            int b = Integer.parseInt(answer);
 
 
                             if (b == 1) {
                                 shop.buy(user);
                             } else if (b == 2) {
-                                shop.printAllProducts(user.getId());
+                                ShopService shop1 = new ShopService();
+                                shop1.printAllProducts(user.getId());
                             } else if (b == 3) {
                                 shop.deleteFromCart(user.getId());
                             } else if (b == 4) {
-                                System.out.println(shop.getTotalPrice(user.getId()));
+                                System.out.println(shop.getTotalPrice(user.getId()) + "\n");
                             } else break;
 
 

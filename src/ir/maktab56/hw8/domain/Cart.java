@@ -3,8 +3,17 @@ package ir.maktab56.hw8.domain;
 public class Cart {
     private int userId;
     private int productId;
+    private String productName;
     private int number;
     private boolean isPaid;
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
 
     public int getUserId() {
         return userId;
@@ -38,12 +47,12 @@ public class Cart {
         isPaid = paid;
     }
 
-
     @Override
     public String toString() {
         return
-                ", productId=" + productId +
-                        ", number=" + number +
-                        ", isPaid=" + isPaid;
+                " productId =" + productId +
+                        //        ", productName ='" + productName + '\'' +
+                        "  number =" + number;
+        //        ", isPaid =" + isPaid ;
     }
 }

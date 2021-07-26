@@ -24,40 +24,66 @@ public class ShopService {
 
 
     public void buy(User user) throws SQLException {
-        ArrayList<Category> categories = categoryRepository.getAllCategories();
-        for (Category c : categories) {
+        if (cartRepository.getAllNumberUserProducts(user.getId()) < 5) {
 
-            System.out.println(c.toString());
-        }
-        int categoryId = Integer.parseInt(JOptionPane.showInputDialog("Enter the category ID you want :"));
 
-        ArrayList<Product> products = productRepository.getProductsByCategoryId(categoryId);
-        for (Product p : products) {
+            ArrayList<Category> categories = categoryRepository.getAllCategories();
+            for (Category c : categories) {
 
-            System.out.println(p.toString());
-        }
-        int productId = Integer.parseInt(JOptionPane.showInputDialog("Enter the product ID you want :"));
+                System.out.println(c.toString());
+                System.out.println();
+            }
+            int categoryId = Integer.parseInt(JOptionPane.showInputDialog("Enter the category ID you want :"));
 
-        int inventory = productRepository.getInventory(productId);
-        if (inventory > 0) {
+            ArrayList<Product> products = productRepository.getProductsByCategoryId(categoryId);
+            for (Product p : products) {
 
-            int number = Integer.parseInt(JOptionPane.showInputDialog("Enter the number you want to buy :"));
+                System.out.println(p.toString());
+                System.out.println();
+            }
+            int productId = Integer.parseInt(JOptionPane.showInputDialog("Enter the product ID you want :"));
 
-            if ((inventory - number) >= 0) {
-                int newInventory = inventory - number;
-                productRepository.updateInventory(productId, newInventory);
-                //*****
-                cartRepository.insert(user.getId(), categoryId, number, false);
+            int inventory = productRepository.getInventory(productId);
+            if (inventory > 0) {
+
+                int number = Integer.parseInt(JOptionPane.showInputDialog("Enter the number you want to buy :"));
+
+                if ((inventory - number) >= 0) {
+
+                    if ((cartRepository.getAllNumberUserProducts(user.getId()) + number) <= 5) {
+                        int newInventory = inventory - number;
+                        productRepository.updateInventory(productId, newInventory);
+                        if (cartRepository.productIsExist(user.getId(), productId)) {
+                            int newNumber = cartRepository.getNumber(user.getId(), productId) + number;
+                            cartRepository.updateNumber(user.getId(), productId, newNumber);
+                        } else {
+                            cartRepository.insert(user.getId(), categoryId, number, false);
+                        }
+
+
+                    } else {
+
+
+                        JOptionPane.showMessageDialog(null, "The number you entered is unacceptable", "inventory", JOptionPane.ERROR_MESSAGE);
+                    }
+
+
+                } else {
+
+                    JOptionPane.showMessageDialog(null, "The number of requests you have\n" +
+                            " is more than our inventory", "inventory", JOptionPane.ERROR_MESSAGE);
+                }
 
             } else {
+                JOptionPane.showMessageDialog(null, "This product is not available ",
+                        "inventory", JOptionPane.ERROR_MESSAGE);
 
-                JOptionPane.showMessageDialog(null, "The number of requests you have\n" +
-                        " is more than our inventory", "inventory", JOptionPane.ERROR_MESSAGE);
             }
-
         } else {
-            JOptionPane.showMessageDialog(null, "This product is not available ",
-                    "inventory", JOptionPane.ERROR_MESSAGE);
+
+            JOptionPane.showMessageDialog(null, "Your cart capacity is full !\n" +
+                            "You must delete items to add a new product",
+                    "full !", JOptionPane.ERROR_MESSAGE);
 
         }
 
@@ -66,11 +92,12 @@ public class ShopService {
 
     public void printAllProducts(int userId) throws SQLException {
         ArrayList<Cart> list = cartRepository.getCart(userId);
-        for (Cart c : list) {
-            System.out.println(c.toString());
+        for (Cart k : list) {
+            System.out.println(k.toString());
+
 
         }
-
+        System.out.println();
     }
 
 

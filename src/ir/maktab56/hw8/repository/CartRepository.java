@@ -47,7 +47,7 @@ public class CartRepository extends Repository {
 
     public ArrayList<Cart> getCart(int userId) throws SQLException {
 
-        ArrayList<Cart> list = new ArrayList<>();
+        ArrayList<Cart> listt = new ArrayList<>();
 
         Statement statement = connection.createStatement();
         ResultSet result = statement.executeQuery("select * from cart where userId=" + userId + " and isPaid=" + false);
@@ -60,10 +60,10 @@ public class CartRepository extends Repository {
             cart.setProductId(result.getInt(2));
             cart.setNumber(result.getInt(3));
             cart.setPaid(result.getBoolean(4));
-            list.add(cart);
+            listt.add(cart);
         }
 
-        return list;
+        return listt;
 
 
     }
@@ -103,20 +103,64 @@ public class CartRepository extends Repository {
 //    }
 
 
-//    public int getNumberUserProducts(int userId) throws SQLException {
-//
-//        Statement statement = connection.createStatement();
-//        ResultSet result = statement.executeQuery("select * from cart where userId =" + userId);
-//        int sum = 0;
-//        while (result.next()) {
-//
-//            sum += result.getInt(3);
-//        }
-//
-//        return sum;
-//
-//
-//    }
+    public int getAllNumberUserProducts(int userId) throws SQLException {
 
+        Statement statement = connection.createStatement();
+        ResultSet result = statement.executeQuery("select * from cart where userId =" + userId);
+        int sum = 0;
+        while (result.next()) {
+
+            sum += result.getInt(3);
+        }
+
+        return sum;
+
+
+    }
+
+    public int getNumber(int userId, int productId) throws SQLException {
+
+        Statement statement = connection.createStatement();
+        ResultSet result = statement.executeQuery("select number from cart where userId =" + userId + " and productId=" + productId);
+        int number = 0;
+        while (result.next()) {
+
+            number = result.getInt(3);
+        }
+
+        return number;
+
+
+    }
+
+
+    public boolean productIsExist(int userId, int productId) throws SQLException {
+        Statement stb = connection.createStatement();
+        ResultSet re = stb.executeQuery("select productId from cart where userId=" + userId);
+
+
+        while (re.next()) {
+            if (re.getInt(1) == productId)
+                return true;
+
+        }
+
+        return false;
+
+    }
+
+    public void updateNumber(int userId, int productId, int newNumber) throws SQLException {
+
+
+        PreparedStatement pre = connection.prepareStatement
+                ("UPDATE cart SET " +
+                        "`number`=? WHERE productId =" + productId + "and userId=" + userId);
+
+        pre.setInt(1, newNumber);
+
+
+        pre.executeUpdate();
+
+    }
 
 }
