@@ -116,6 +116,7 @@ public class ShopService {
                 "Delete", JOptionPane.ERROR_MESSAGE);
     }
 
+
     public int getTotalPrice(int userId) throws SQLException {
 
         ArrayList<Cart> list = cartRepository.getCart(userId);

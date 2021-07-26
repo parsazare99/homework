@@ -60,6 +60,14 @@ public class CartRepository extends Repository {
             cart.setProductId(result.getInt(2));
             cart.setNumber(result.getInt(3));
             cart.setPaid(result.getBoolean(4));
+            Statement s = connection.createStatement();
+            ResultSet res = s.executeQuery("select name, price from products where productId=" + cart.getProductId());
+            while (res.next()) {
+                cart.setProductName(res.getString(1));
+                cart.setPrice(res.getInt(2));
+            }
+
+
             listt.add(cart);
         }
 
@@ -84,29 +92,11 @@ public class CartRepository extends Repository {
     }
 
 
-//    public void getUserProducts(){
-//
-//            Statement statement = connection.createStatement();
-//            ResultSet result = statement.executeQuery("select * from products where username =" + name);
-//
-//            while (result.next()) {
-//
-//                product.setId(result.getInt(1));
-//                product.setName(result.getString(2));
-//                product.setPrice(result.getInt(3));
-//                product.setInventory(result.getInt(4));
-//                product.setCategoryId(result.getInt(5));
-//            }
-//
-//            return product;
-//
-//    }
-
-
     public int getAllNumberUserProducts(int userId) throws SQLException {
 
         Statement statement = connection.createStatement();
-        ResultSet result = statement.executeQuery("select * from cart where userId =" + userId);
+        ResultSet result = statement.executeQuery("select * from cart where userId = " + userId);
+
         int sum = 0;
         while (result.next()) {
 

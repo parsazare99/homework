@@ -5,10 +5,19 @@ public class Cart {
     private int productId;
     private String productName;
     private int number;
+    private int price;
     private boolean isPaid;
 
     public String getProductName() {
         return productName;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
 
     public void setProductName(String productName) {
@@ -50,9 +59,9 @@ public class Cart {
     @Override
     public String toString() {
         return
-                " productId =" + productId +
-                        //        ", productName ='" + productName + '\'' +
-                        "  number =" + number;
-        //        ", isPaid =" + isPaid ;
+                "productId = " + productId +
+                        "  ,  productName =' " + productName + '\'' +
+                        "  ,  number = " + number +
+                        "  ,  price = " + price;
     }
 }
