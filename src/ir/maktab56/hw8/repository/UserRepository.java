@@ -16,7 +16,6 @@ public class UserRepository extends Repository {
 
     }
 
-
     public void insertUser(User user) throws SQLException {
 
         PreparedStatement pre = connection.prepareStatement("insert into" +

@@ -16,6 +16,7 @@ public class ProductRepository extends Repository {
 
     }
 
+
     public void insertProduct(Product product) throws SQLException {
 
         PreparedStatement pre = connection.prepareStatement("INSERT INTO products " +
