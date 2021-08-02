@@ -73,7 +73,7 @@ public class AdminService {
             System.out.println(p.toString());
 
         }
-        System.out.println("<><><><><><><><><><><><><><><><><><><><>");
+        System.out.println("<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>");
 
         int productId = Integer.parseInt(JOptionPane.showInputDialog("Enter the product ID you want :"));
 

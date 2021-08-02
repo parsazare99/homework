@@ -46,7 +46,8 @@ public class MainApplication {
                         String adminAnswer = JOptionPane.showInputDialog(
                                 "1 : To add product\n" +
                                         "2 : to add category\n" +
-                                        "3 : Exit ");
+                                        "3 : to increase Product Inventory \n" +
+                                        "4 :Exit");
                         int add = Integer.parseInt(adminAnswer);
                         if (add == 1) {
                             adminService.addProduct();
@@ -55,6 +56,9 @@ public class MainApplication {
                         } else if (add == 2) {
 
                             adminService.addCategory();
+                        } else if (add == 3) {
+
+                            adminService.increaseInventory();
                         } else {
                             break;
                         }
