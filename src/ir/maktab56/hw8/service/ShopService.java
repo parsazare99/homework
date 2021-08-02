@@ -94,20 +94,27 @@ public class ShopService {
 
     public void printAllProducts(int userId) throws SQLException {
         ArrayList<Cart> list = cartRepository.getCart(userId);
-        for (Cart k : list) {
-            System.out.println(k.toString());
+        if (list.isEmpty()) {
+            System.out.println("Your Cart Is Empty ");
+        } else {
+            for (Cart k : list) {
+                System.out.println(k.toString());
 
-
+            }
+            System.out.println();
         }
-        System.out.println();
+
+
     }
 
 
     public void deleteFromCart(int userId) throws SQLException {
 
         printAllProducts(userId);
+        Product product = new Product();
 
         int productId = Integer.parseInt(JOptionPane.showInputDialog("Enter the product ID you want to Delete:"));
+        product = productRepository.getproductById(productId);
         Cart cart = cartRepository.getCart(userId, productId);
         int removeNumber;
         while (true) {
@@ -128,8 +135,10 @@ public class ShopService {
 
         cart.setNumber(newNumber);
         cartRepository.updateNumber(userId, productId, newNumber);
+        int newInventory = product.getInventory() + removeNumber;
+        product.setInventory(newInventory);
 
-
+        productRepository.updateInventory(product.getId(), newInventory);
 
         JOptionPane.showMessageDialog(null, "Removal from cart was successful",
                 "Delete", JOptionPane.INFORMATION_MESSAGE);

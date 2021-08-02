@@ -48,6 +48,22 @@ public class ProductRepository extends Repository {
         return product;
     }
 
+    public Product getproductById(int id) throws SQLException {
+        Product product = new Product();
+        Statement statement = connection.createStatement();
+        ResultSet result = statement.executeQuery("select * from products where productId =" + id);
+
+        while (result.next()) {
+
+            product.setId(result.getInt(1));
+            product.setName(result.getString(2));
+            product.setPrice(result.getInt(3));
+            product.setInventory(result.getInt(4));
+            product.setCategoryId(result.getInt(5));
+        }
+
+        return product;
+    }
 
     public ArrayList<Product> getAllproducts() throws SQLException {
 

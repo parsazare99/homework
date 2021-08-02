@@ -33,7 +33,7 @@ public class AdminService {
         }
 
         String category = JOptionPane.showInputDialog("Enter Category ID :\n " +
-                " for add new category Enter 'new' :");
+                "For Add New Category Enter 'new' :");
 
         if (category.toLowerCase().equals("new")) {
 
