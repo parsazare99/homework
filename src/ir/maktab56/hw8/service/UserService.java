@@ -21,7 +21,9 @@ public class UserService {
 
         user.setPassword(JOptionPane.showInputDialog("Enter your password :"));
 
-
+        if (!(user.getUsername().equals("admin"))) {
+            user.setBalance(500);
+        }
         userRepository.insertUser(user);
 
         JOptionPane.showMessageDialog(null, "Wellcome to System !");

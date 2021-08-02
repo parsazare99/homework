@@ -76,6 +76,32 @@ public class CartRepository extends Repository {
 
     }
 
+    public Cart getCart(int userId, int productId) throws SQLException {
+
+
+        Statement statement = connection.createStatement();
+        ResultSet result = statement.executeQuery("select * from cart where userId=" + userId + " and productId=" + productId);
+        Cart cart = new Cart();
+
+        while (result.next()) {
+
+            cart.setUserId(result.getInt(1));
+            cart.setProductId(result.getInt(2));
+            cart.setNumber(result.getInt(3));
+            cart.setPaid(result.getBoolean(4));
+            Statement s = connection.createStatement();
+            ResultSet res = s.executeQuery("select name, price from products where productId=" + cart.getProductId());
+            while (res.next()) {
+                cart.setProductName(res.getString(1));
+                cart.setPrice(res.getInt(2));
+            }
+
+        }
+
+        return cart;
+
+    }
+
 
     public void setIsPaid(int userId) throws SQLException {
 

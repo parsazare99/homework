@@ -19,10 +19,11 @@ public class UserRepository extends Repository {
     public void insertUser(User user) throws SQLException {
 
         PreparedStatement pre = connection.prepareStatement("insert into" +
-                " users (username,password) values (?,?)");
+                " users (username,password,balance) values (?,?,?)");
 
         pre.setString(1, user.getUsername());
         pre.setString(2, user.getPassword());
+        pre.setInt(3, user.getBalance());
 
         pre.executeUpdate();
 

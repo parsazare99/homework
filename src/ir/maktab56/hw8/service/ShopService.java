@@ -108,12 +108,31 @@ public class ShopService {
         printAllProducts(userId);
 
         int productId = Integer.parseInt(JOptionPane.showInputDialog("Enter the product ID you want to Delete:"));
+        Cart cart = cartRepository.getCart(userId, productId);
+        int removeNumber;
+        while (true) {
 
-        cartRepository.RemoveFromCart(userId, productId);
+            removeNumber = Integer.parseInt(JOptionPane.showInputDialog("Enter the number you want to Delete:"));
+            if (removeNumber <= cart.getNumber()) {
+                break;
+            } else {
+                JOptionPane.showMessageDialog(null, "Wrong Number !!!\n" +
+                                "Please try againe... ",
+                        " Error ", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        int newNumber = cart.getNumber() - removeNumber;
+        if (newNumber == 0) {
+            cartRepository.RemoveFromCart(userId, productId);
+        }
+
+        cart.setNumber(newNumber);
+        cartRepository.updateNumber(userId, productId, newNumber);
+
 
 
         JOptionPane.showMessageDialog(null, "Removal from cart was successful",
-                "Delete", JOptionPane.ERROR_MESSAGE);
+                "Delete", JOptionPane.INFORMATION_MESSAGE);
     }
 
 
