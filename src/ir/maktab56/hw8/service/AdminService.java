@@ -65,4 +65,25 @@ public class AdminService {
     }
 
 
+    public void increaseInventory() throws SQLException {
+
+        ArrayList<Product> products = productRepository.getAllproducts();
+        for (Product p : products) {
+
+            System.out.println(p.toString());
+
+        }
+        System.out.println("<><><><><><><><><><><><><><><><><><><><>");
+
+        int productId = Integer.parseInt(JOptionPane.showInputDialog("Enter the product ID you want :"));
+
+        Product p = new Product();
+        p = productRepository.getproductById(productId);
+        int capacity = Integer.parseInt(JOptionPane.showInputDialog("How many do you want to increase capacity :"));
+        int newInventory = p.getInventory() + capacity;
+        productRepository.updateInventory(p.getId(), newInventory);
+
+
+    }
+
 }
