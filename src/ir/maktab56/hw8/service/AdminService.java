@@ -7,6 +7,7 @@ import ir.maktab56.hw8.repository.ProductRepository;
 
 import javax.swing.*;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class AdminService {
 
@@ -24,6 +25,12 @@ public class AdminService {
         product.setName(JOptionPane.showInputDialog("Enter Product Name:"));
         product.setPrice(Integer.parseInt(JOptionPane.showInputDialog("Enter Product Price:")));
         product.setInventory(Integer.parseInt(JOptionPane.showInputDialog("Enter Product Inventory:")));
+        ArrayList<Category> categories = categoryRepository.getAllCategories();
+        for (Category c : categories) {
+
+            System.out.println(c.toString());
+
+        }
 
         String category = JOptionPane.showInputDialog("Enter Category ID :\n " +
                 " for add new category Enter 'new' :");

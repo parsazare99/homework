@@ -17,7 +17,21 @@ public class UserService {
     public void register() throws SQLException {
         User user = new User();
 
-        user.setUsername(JOptionPane.showInputDialog("Enter your UserName :"));
+        while (true) {
+
+            String username = JOptionPane.showInputDialog("Enter your UserName :");
+
+            if (userRepository.userIsExist(username)) {
+                JOptionPane.showMessageDialog(null, "this user is Exists!\n" +
+                        "Please choose another username ");
+
+
+            } else {
+                user.setUsername(username);
+                break;
+
+            }
+        }
 
         user.setPassword(JOptionPane.showInputDialog("Enter your password :"));
 
